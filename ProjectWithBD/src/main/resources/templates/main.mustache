@@ -1,0 +1,27 @@
+<html>
+<body>
+<div>
+    <form method="post">
+        <input type="text" name="text" placeholder="Please give me text">
+        <input type="text" name="tag" placeholder="Teg">
+        <button type="submit">Add</button>
+    </form>
+</div>
+
+
+<div> Список сообщений:</div>
+<form method="post" action="filter">
+    <input type="text" name="filter" >
+    <button type="submit">Search</button>
+</form>
+{{#messages}}
+
+  <div>
+      <b>{{id}}</b>
+      <span>{{text}}</span>
+      <i>{{tag}}</i>
+  </div>
+{{/messages}}
+
+</body>
+</html>
