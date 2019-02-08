@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.daria.repo.MessegeRepo;
+import com.daria.repo.MessageRepo;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,7 @@ import java.util.Map;
 public class GreetingController {
 
     @Autowired
-    private MessegeRepo messegeRepo;
+    private MessageRepo messegeRepo;
 
 
     @GetMapping("/greeting")
@@ -48,8 +48,18 @@ public class GreetingController {
 
     @PostMapping("filter")
     public String filter(@RequestParam String filter,  Map<String, Object> model){
-        List<Messege> messeges =  messegeRepo.findByTag(filter);
-        model.put("messeges", messeges);
+        Iterable<Messege> messages;
+
+
+List<Messege> messeges = messegeRepo.findByTag(filter);
+      if (filter != null && filter.isEmpty()){
+          messages = messegeRepo.findByTag(filter);
+      }
+else {
+          messeges = (List<Messege>) messegeRepo.findAll();
+        }
+
+        model.put("messages", messeges);
         return "main";
     }
 
